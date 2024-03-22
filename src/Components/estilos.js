@@ -211,37 +211,45 @@ features: {
   textAlign: 'center',
 },
 featureContainer: {
-  height:'400px',
   display: 'flex',
-  justifyContent: 'center',
-  gap: '20px',
+  flexWrap: 'wrap',
+  justifyContent: 'center', // Esto centrará las cards si no llenan toda la línea
+  gap: '20px', // Espacio entre las cards
   marginTop: '20px',
 },
 feature: {
   backgroundColor: 'white',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  alignItems: 'center',
   padding: '20px',
   borderRadius: '8px',
   boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-  width: '30%',
-},
-featureBoton:{
-    backgroundColor: colores.boton, // Usado para el color de fondo de los botones
-    color: colores.textoBoton,
-    padding: 10,
-    borderRadius: 5,
-    marginTop:'200px',
-    border: 'none',
-    cursor: 'pointer',
-    fontSize: 18,
-    fontWeight: "bold",
-    textAlign: "center",
-},
-featureImg:{ 
-  backgroundColor:colores.fondoLogo,
-  width:'',
-  height:'',
+  width: '25%',
+  minHeight: '430px',
+  overflow: 'hidden', // Esto ocultará cualquier contenido que sobrepase el cuadro
 },
 
+featureDescription: {
+  height: '110px', // Ajusta a la altura que desees
+  overflow: 'hidden', // Para ocultar contenido que excede la altura máxima
+  textOverflow: 'ellipsis', // Para poner puntos suspensivos si el texto es muy largo
+  marginBottom: '10px', // Espacio antes del botón "Ver detalles"
+},
+featureBoton: {
+  
+  backgroundColor: colores.boton, // Usado para el color de fondo de los botones, especialmente el botón de registro
+  color: colores.textoBoton,
+  padding: 15,
+  borderRadius: 5,
+  border: 'none',
+  cursor: 'pointer',
+  fontSize: 18,
+  fontWeight: "bold",
+  textAlign: "center",
+  width: '100%',
+},
 //ESTILOS PARA EL FOOTER
 footerDatos:{
   height:'auto',
@@ -284,6 +292,25 @@ footer: {
   height:'22px'
 
 },
+navLinkFooter:{
+  color: '#fff', // Color blanco para el texto del enlace
+  textDecoration: 'none', // Elimina el subrayado de los enlaces
+  // Estilos para los estados hover y active
+  '&:hover, &:active': {
+    color: '#fff', // Mantiene el color blanco al pasar el mouse y al hacer clic
+    textDecoration: 'none', // Asegura que no haya subrayado al pasar el mouse
+  },
+},
+iconsLink: {
+  color: '#fff', // Establece el color de los íconos a blanco
+  textDecoration: 'none', // Elimina el subrayado de los íconos
+  // Añade estilos para hover o focus si es necesario
+  '&:hover, &:focus': {
+    color: '#fff', // Color cuando el mouse está sobre el ícono o está enfocado
+    textDecoration: 'none',
+  },
+},
+
 };
 
 

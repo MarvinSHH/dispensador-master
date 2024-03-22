@@ -1,33 +1,36 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext'; // Asegúrate de que la ruta de importación es correcta
 import imgLogo from '../../../assets/logoP.png';
 import styles from '../../estilos';
-
 function PrivHeader() {
     const [showSubMenu, setShowSubMenu] = useState(false);
+    const { logout } = useAuth(); // Usa el hook useAuth para acceder a la función logout
+    const navigate = useNavigate(); // Hook de React Router para manejar la navegación programática
 
     const toggleSubMenu = (e) => {
-        // Previene que el evento de clic se propague al header
         e.stopPropagation();
         setShowSubMenu(!showSubMenu);
     };
 
-    // Cierra el submenú si se hace clic fuera de él
     const closeSubMenu = () => {
         if (showSubMenu) {
             setShowSubMenu(false);
         }
     };
 
-    // Agregar el event listener a `window` para cerrar el submenú cuando se haga clic fuera
-    React.useEffect(() => {
+    useEffect(() => {
         window.addEventListener('click', closeSubMenu);
 
-        // Limpiar el event listener al desmontar el componente
         return () => {
             window.removeEventListener('click', closeSubMenu);
         };
-    }, [showSubMenu]); // Se ejecutará nuevamente si `showSubMenu` cambia
+    }, [showSubMenu]);
+
+    const handleLogout = () => {
+        logout(); // Llama a la función logout de tu contexto de autenticación
+        navigate("/"); // Redirige al usuario al inicio
+    };
 
     return (
         <header style={styles.header} onClick={closeSubMenu}>
@@ -37,25 +40,24 @@ function PrivHeader() {
                 </div>
                 <div style={styles.navStyles}>
                     <nav style={styles.navLinks}>
-                        <h1 style={styles.navLink}>Header Administrador</h1>
 
-                        <div
-                            style={styles.navLink}
-                            onClick={toggleSubMenu} // Usar onClick aquí
-                        >
+                        <div style={styles.navLink} onClick={toggleSubMenu}>
                             <Link to="" style={styles.navLink}>Administrador --</Link>
 
                             {showSubMenu && (
                                 <div style={styles.subMenu}>
                                     <Link to="/user" style={styles.subNavLink}>usuarios</Link>
                                     <Link to="/product" style={styles.subNavLink}>Productos</Link>
+                                    <Link to="/empresaForm" style={styles.subNavLink}>Panel Page</Link>
+
                                     {/* Más enlaces del submenú */}
                                 </div>
                             )}
                         </div>
                         <Link to="/" style={styles.navLink}>Inicio</Link>
-                        <Link to="/productos" style={styles.navLink}>Productos</Link>
-                        <Link to="/registrarse" style={styles.navLink}>Cerrar Sesion</Link>
+                        <Link to="/catalogo" style={styles.navLink}>Productos</Link>
+                        {/* Reemplaza este enlace por un botón o elemento clickable que llame a handleLogout */}
+                        <button onClick={handleLogout} style={styles.navLink}>Cerrar Sesión</button>
                     </nav>
                 </div>
             </div>

@@ -13,10 +13,9 @@ const Header = () => {
         </div>
         <div style={styles.navStyles}>
           <nav style={styles.navLinks}>
-            <h1 style={styles.navLink}>Header Usuario Gral</h1>
 
             <Link to="/" style={styles.navLink}>Inicio</Link>
-            <Link to="/productos" style={styles.navLink}>Productos</Link>
+            <Link to="/catalogo" style={styles.navLink}>Productos</Link>
             <Link to="/registrarse" style={styles.navLink}>Iniciar Sesion</Link>
           </nav>
         </div>

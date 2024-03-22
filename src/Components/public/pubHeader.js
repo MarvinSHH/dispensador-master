@@ -1,9 +1,19 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext.js'
+
 import imgLogo from '../../assets/logoP.png';
 import styles from '../estilos.js'; 
 
-function pubHeader() {
+function PubHeader() {
+  const { logout } = useAuth(); // Usa el hook useAuth para acceder a la función logout
+  const navigate = useNavigate(); // Hook de React Router para manejar la navegación programática
+
+  const handleLogout = () => {
+    logout(); // Llama a la función logout de tu contexto de autenticación
+    navigate("/"); // Redirige al usuario al inicio
+  };
+
   return (
     <header style={styles.header}>
       <div style={styles.head}>
@@ -12,12 +22,12 @@ function pubHeader() {
         </div>
         <div style={styles.navStyles}>
           <nav style={styles.navLinks}>
-            <h1 style={styles.navLink}>Header Cliente Registrado</h1>
             <Link to="/" style={styles.navLink}>Inicio</Link>
-            <Link to="/productos" style={styles.navLink}>Productos</Link>
-            <Link to="/" style={styles.navLink}>Dashboard</Link>
-            <Link to="/" style={styles.navLink}>Perfil</Link>
-            <Link to="/registrarse" style={styles.navLink}>Cerrar Sesion</Link>
+            <Link to="/catalogo" style={styles.navLink}>Productos</Link>
+            <Link to="/dispositivoIoT" style={styles.navLink}>Dashboard</Link>
+            <Link to="/perfil" style={styles.navLink}>Perfil</Link>
+            {/* Reemplaza el enlace de cerrar sesión por un botón o elemento clickable que llame a handleLogout */}
+            <button onClick={handleLogout} style={styles.navLink}>Cerrar Sesión</button>
           </nav>
         </div>
       </div>
@@ -25,4 +35,4 @@ function pubHeader() {
   );
 };
 
-export default pubHeader
+export default PubHeader;

@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from 'react';
+
+import { EmpresaContext } from './admin/pagina/EmpresaContext';
 import styles from "./estilos";
 import imgHome from '../assets/imgHome2.jpg'; // Asegúrate de que la ruta de la imagen es correcta
 
 const AboutUs = () => {
+const { empresa } = useContext(EmpresaContext);
+
   return (
     <div >
       <div style={{  ...styles.heroOpc, backgroundImage: `url(${imgHome})` }}>
@@ -20,19 +24,21 @@ const AboutUs = () => {
         <div style={styles.feature}>
           <h3 style={{ color: styles.textColor }}>Misión</h3>
           <p>
-            Nuestra misión es... (descripción de la misión de la empresa).
+            {empresa.mision}
           </p>
         </div>
         <div style={styles.feature}>
           <h3 style={{ color: styles.textColor }}>Visión</h3>
           <p>
-            Nuestra visión es... (descripción de la visión de la empresa).
+          {empresa.vision}
+
           </p>
         </div>
         <div style={styles.feature}>
           <h3 style={{ color: styles.textColor }}>Valores</h3>
           <p>
-            Nos guiamos por... (descripción de los valores de la empresa).
+          {empresa.valores}
+
           </p>
         </div>
       </section>

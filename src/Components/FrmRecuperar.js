@@ -1,66 +1,59 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; // Importar desde react-router-dom para la navegación
+import { useNavigate } from "react-router-dom";
 import styles from "./estilos";
 
-const FrmRecuperar=()=>{
-    const [nombre, setNombre] = useState("");
-    const [apellido, setApellido] = useState("");
-    const [usuario, setUsuario] = useState("");
+const FrmRecuperar = () => {
     const [correo, setCorreo] = useState("");
-    const [contrasena, setContrasena] = useState("");
-    const [confirmaContrasena, setConfirmarContrasena] = useState("");
-    const [telefono, setTelefono] = useState("");
+    const [error, setError] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
+    const navigate = useNavigate();
 
-    const handleRegister = (e) => {
+    const handleRecuperar = async (e) => {
         e.preventDefault();
-        console.log("Registro:", {
-            nombre,
-            apellido,
-            usuario,
-            correo,
-            contrasena,
-            confirmaContrasena,
-            telefono,
-        });
+
+        try {
+            const response = await fetch('https://apibackend-one.vercel.app/api/usuarios/solicitar-recuperacion', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ correo }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || "Error al solicitar la recuperación de contraseña.");
+            }
+
+            setSuccessMessage("Se ha enviado un correo electrónico con instrucciones para restablecer tu contraseña.");
+            setTimeout(() => navigate('/login'), 5000); // Ajusta la ruta según sea necesario
+
+        } catch (error) {
+            console.error('Error:', error);
+            setError(error.message);
+        }
     };
 
     return (
-
-        <div style={styles.formContainer} >
+        <div style={styles.formContainer}>
             <h2 style={styles.title}>Recuperar Contraseña</h2>
-            <form onSubmit={handleRegister}>
-
-                <div style={styles.cincuenta}>
-                    <div style={styles.inCincuenta}>
-                        <label style={styles.label}>Nombre:</label>
-                        <input style={styles.input} type="text" placeholder="Nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} />
-                    </div>
-                    <div style={styles.inCincuenta}>
-                        <label style={styles.label}>Apellido:</label>
-                        <input style={styles.input} type="text" placeholder="Apellido " value={apellido} onChange={(e) => setApellido(e.target.value)} />
-                    </div>
-                </div>
-
-                <label style={styles.label}>Usuario:</label>
-                <input style={styles.input} type="text" placeholder="Usuario" value={usuario} onChange={(e) => setUsuario(e.target.value)} />
-
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+            <form onSubmit={handleRecuperar}>
                 <label style={styles.label}>Correo:</label>
-                <input style={styles.input} type="email" placeholder="Correo" value={correo} onChange={(e) => setCorreo(e.target.value)} />
-
-                <label style={styles.label}>Contraseña:</label>
-                <input style={styles.input} type="password" placeholder="Contraseña" value={contrasena} onChange={(e) => setContrasena(e.target.value)} />
-
-                <label style={styles.label}>Confirmar Contraseña:</label>
-                <input style={styles.input} type="password" placeholder="Confirmar contraseña" value={confirmaContrasena} onChange={(e) => setConfirmarContrasena(e.target.value)} />
-
-                <label style={styles.label}>Teléfono:</label>
-                <input style={styles.input} type="tel" placeholder="Teléfono" value={telefono} onChange={(e) => setTelefono(e.target.value)} />
-
-                <button style={styles.registerButton} type="submit">¡Regístrate ahora!</button>
+                <input
+                    style={styles.input}
+                    type="email"
+                    placeholder="Ingresa tu correo electrónico"
+                    value={correo}
+                    onChange={(e) => setCorreo(e.target.value)}
+                    required
+                />
+                <button style={styles.registerButton} type="submit">Enviar solicitud</button>
             </form>
-            {/* Enlace a la página de login usando React Router */}
-            <Link to=".." style={styles.loginButtonText}>Cancelar</Link>
         </div>
     );
-}
+};
+
 export default FrmRecuperar;

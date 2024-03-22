@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useContext } from 'react';
+
+import { EmpresaContext } from './admin/pagina/EmpresaContext';
 
 const mapURL = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1327.4641905758356!2d-98.41780097519809!3d21.14451916710501!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d7268fc840682f%3A0x9d5b1123cf856c9b!2sClínica%20y%20Farmacia%20Veterinaria%20Salud%20Animal!5e0!3m2!1ses-419!2smx!4v1710225006458!5m2!1ses-419!2smx";
+
+
 
 const contactStyles = {
   contactContainer: {
@@ -53,6 +57,8 @@ const contactStyles = {
 };
 
 const ContactPage = () => {
+const { empresa } = useContext(EmpresaContext);
+
   return (
     <div style={contactStyles.contactContainer}>
       <h1 style={contactStyles.contactHeader}>Información de Contacto</h1>
@@ -60,12 +66,7 @@ const ContactPage = () => {
         <div style={contactStyles.contactInfo}>
           <h2>Planeta Mascotas</h2>
           <ul style={contactStyles.contactList}>
-            <li style={contactStyles.contactListItem}>123 Mascota Feliz, Ciudad Animal, PA 101010</li>
-            <li style={contactStyles.contactListItem}>Teléfono: (123) 456-7890</li>
-            <li style={contactStyles.contactListItem}>Email: contacto@planetamascotas.com</li>
-            <li style={contactStyles.contactListItem}>
-              Web: <a style={contactStyles.contactLink} href="https://www.planetamascotas.com">www.planetamascotas.com</a>
-            </li>
+            <li style={contactStyles.contactListItem}>{empresa.contacto}</li>
           </ul>
         </div>
         <iframe

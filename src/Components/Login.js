@@ -17,7 +17,7 @@ const Inicio = () => {
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={styles.loginContainer}>
-          <Text style={styles.loginTitle}>Iniciar sesión</Text>
+          <Text style={styles.loginTitle}>Iniciar dasdas</Text>
           <View style={styles.inputContainer}>
             {/* Usuario Label */}
             <Text style={styles.inputLabel}>Usuario</Text>

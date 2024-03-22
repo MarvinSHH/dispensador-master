@@ -7,6 +7,7 @@ import imgFondo from '../assets/bienvenido.jpg'
 import FrmLogin from "./FrmLogin";
 import FrmRegistro from "./FrmRegistro";
 import FrmRecuperar from "./FrmRecuperar";
+import ResetPassword from "./ResetPassword";
 
 const Formulario = () => {
 
@@ -21,6 +22,8 @@ const Formulario = () => {
           <Route index element={<FrmLogin />} />
           <Route path="registro" element={<FrmRegistro />} />
           <Route path="recuperar" element={<FrmRecuperar />} />
+          <Route path="recuperar-contrasena/:token" element={<ResetPassword />} />
+
         </Routes>
 
       </div>
