@@ -1,30 +1,12 @@
+// Product.js
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import colores from "../../paletaColores.js"; // Asegúrate de que la ruta sea la correcta
 
-
-const tableHeaderStyle = {
-  backgroundColor: colores.fondoHeader,
-  color: colores.textoHeader,
-  textAlign: "center",
-  border: `1px solid ${colores.separador}`,
-};
-
-const tableCellStyle = {
-  textAlign: "center",
-  border: `1px solid ${colores.separador}`,
-};
-
-const buttonStyle = {
-  backgroundColor: colores.boton,
-  color: colores.textoBoton,
-  margin: "0 5px",
-};
-
 function Product() {
   const [products, setProducts] = useState([]);
-  const [editingProduct, setEditingProduct] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchProducts();
@@ -33,6 +15,7 @@ function Product() {
   const fetchProducts = async () => {
     try {
       const response = await fetch("https://apibackend-one.vercel.app/api/productos");
+      if (!response.ok) throw new Error('No se pudo obtener los productos');
       const data = await response.json();
       setProducts(data);
     } catch (error) {
@@ -46,7 +29,7 @@ function Product() {
       const response = await fetch(`https://apibackend-one.vercel.app/api/productos/${id}`, {
         method: "DELETE",
       });
-      if (!response.ok) throw new Error("Product deletion failed");
+      if (!response.ok) throw new Error('Product deletion failed');
       fetchProducts(); // Refetch the products after deletion
       Swal.fire("Eliminado", "Producto eliminado con éxito.", "success");
     } catch (error) {
@@ -55,29 +38,6 @@ function Product() {
     }
   };
 
-  const handleEditChange = (e) => {
-    const { name, value } = e.target;
-    setEditingProduct({ ...editingProduct, [name]: value });
-  };
-
-  const saveProduct = async () => {
-    try {
-      const response = await fetch(`https://apibackend-one.vercel.app/api/productos/${editingProduct._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(editingProduct),
-      });
-      if (!response.ok) throw new Error("Product update failed");
-      fetchProducts(); // Refetch the products after update
-      setEditingProduct(null); // Reset editing state
-      Swal.fire("Actualizado", "Producto actualizado con éxito.", "success");
-    } catch (error) {
-      console.error("Error updating product:", error);
-      Swal.fire("Error", "No se pudo actualizar el producto.", "error");
-    }
-  };
   return (
     <div style={styles.bodyTab}>
       <h2 style={{ color: colores.negro, textAlign: "center" }}>Productos</h2>
@@ -85,8 +45,7 @@ function Product() {
         <button style={buttonStyle}>Agregar Producto</button>
       </Link>
       <div style={styles.tableForm}>
-
-        <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "20px", }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "20px" }}>
           <thead>
             <tr>
               <th style={tableHeaderStyle}>Nombre</th>
@@ -102,23 +61,16 @@ function Product() {
                 <td style={tableCellStyle}>{product.nombre}</td>
                 <td style={tableCellStyle}>{product.precio}</td>
                 <td style={tableCellStyle}>{product.categoria}</td>
-                <td style={tableCellStyle}><img src={product.ruta}></img></td>
-
+                <td style={tableCellStyle}><img src={product.ruta} alt="Producto" /></td>
                 <td style={tableCellStyle}>
-                  <button onClick={() => setEditingProduct(product)} style={buttonStyle}>Editar</button>
+                  <button onClick={() => navigate(`/edit-product/${product._id}`)} style={buttonStyle}>Editar</button>
                   <button onClick={() => deleteProduct(product._id)} style={buttonStyle}>Eliminar</button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-
       </div>
-      {editingProduct && (
-        <div>
-          {/* Implementa el formulario de edición aquí */}
-        </div>
-      )}
     </div>
   );
 }
@@ -138,4 +90,23 @@ const styles = {
     justifyContent: 'center',
   }
 };
+
+const tableHeaderStyle = {
+  backgroundColor: colores.fondoHeader,
+  color: colores.textoHeader,
+  textAlign: "center",
+  border: `1px solid ${colores.separador}`,
+};
+
+const tableCellStyle = {
+  textAlign: "center",
+  border: `1px solid ${colores.separador}`,
+};
+
+const buttonStyle = {
+  backgroundColor: colores.boton,
+  color: colores.textoBoton,
+  margin: "0 5px",
+};
+
 export default Product;

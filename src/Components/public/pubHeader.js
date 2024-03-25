@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.js'
 
-import imgLogo from '../../assets/logoP.png';
+import imgLogo from '../../assets/logoVar.png';
 import styles from '../estilos.js'; 
 
 function PubHeader() {
@@ -20,6 +20,7 @@ function PubHeader() {
         <div style={styles.logo}>
           <img style={styles.logo} src={imgLogo} alt="Logo"/>
         </div>
+        <h2 style={styles.textHead}> Planeta Mascotas</h2>
         <div style={styles.navStyles}>
           <nav style={styles.navLinks}>
             <Link to="/" style={styles.navLink}>Inicio</Link>

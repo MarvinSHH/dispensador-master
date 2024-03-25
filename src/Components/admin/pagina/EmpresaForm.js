@@ -42,19 +42,19 @@ const EmpresaForm = () => {
             },
             body: JSON.stringify(empresa),
         })
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(() => {
-            alert('Información actualizada correctamente');
-        })
-        .catch((error) => {
-            alert('Hubo un problema al actualizar la información');
-            console.error('Error:', error);
-        });
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(() => {
+                alert('Información actualizada correctamente');
+            })
+            .catch((error) => {
+                alert('Hubo un problema al actualizar la información');
+                console.error('Error:', error);
+            });
     };
 
     // Estilos
@@ -94,7 +94,7 @@ const EmpresaForm = () => {
         <div style={formStyles.container}>
             <h1>Configuración de la Empresa</h1>
             <form onSubmit={handleSubmit}>
-                {Object.keys(empresa).map((key) => (
+                {Object.keys(empresa).filter(key => key !== '__v' && key !== '_id').map((key) => (
                     <div key={key}>
                         <label style={formStyles.label}>{key.charAt(0).toUpperCase() + key.slice(1)}</label>
                         <textarea
@@ -106,6 +106,7 @@ const EmpresaForm = () => {
                         />
                     </div>
                 ))}
+
                 <button type="submit" style={formStyles.button}>
                     Actualizar
                 </button>

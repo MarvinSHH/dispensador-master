@@ -8,7 +8,7 @@ const Perfil = () => {
         nombre: '',
         apellido: '',
         correo: '',
-        contraseña: '', 
+        contraseña: '',
         telefono: '',
         tipo: '',
         preguntaRecuperacion: '',
@@ -32,7 +32,7 @@ const Perfil = () => {
                 });
                 if (!response.ok) throw new Error('No se pudo cargar el perfil del usuario.');
                 const datos = await response.json();
-                setDatosPerfil(datos); 
+                setDatosPerfil(datos);
             } catch (error) {
                 setError(error.message);
             }
@@ -53,7 +53,7 @@ const Perfil = () => {
             return;
         }
         try {
-            const valorCampo = {[campo]: valor || datosPerfil[campo]};
+            const valorCampo = { [campo]: valor || datosPerfil[campo] };
             const response = await fetch(`https://apibackend-one.vercel.app/api/usuarios/${currentUser?._id}`, {
                 method: 'PUT',
                 headers: {
@@ -75,28 +75,21 @@ const Perfil = () => {
             {error && <p style={{ color: 'red' }}>{error}</p>}
             <div style={styles.form}>
                 {Object.keys(datosPerfil).map((campo) =>
-                    campo !== '_id' && campo !== 'codigoRecuperacion' ? (
+                    campo !== '_id' && campo !== 'codigoRecuperacion' && campo !== '__v' && campo !== 'tipo' ? (
                         <div key={campo} style={styles.formGroup}>
                             <label style={styles.label}>{campo.charAt(0).toUpperCase() + campo.slice(1)}:</label>
-                            {campo === 'tipo' || campo === 'preguntaRecuperacion' ? (
+                            {campo === 'preguntaRecuperacion' ? (
                                 <select
                                     name={campo}
                                     value={datosPerfil[campo]}
                                     onChange={handleInputChange}
                                     style={styles.input}
                                 >
-                                    {campo === 'tipo' ? (
-                                        <>
-                                            <option value="usuario">Usuario</option>
-                                            <option value="administrador">Administrador</option>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <option value="mejor amigo">¿Cuál es el nombre de tu mejor amigo?</option>
-                                            <option value="color favorito">¿Cuál es tu color favorito?</option>
-                                            <option value="nombre de tu mascota">¿Cómo se llama tu mascota?</option>
-                                        </>
-                                    )}
+                                    <>
+                                        <option value="mejor amigo">¿Cuál es el nombre de tu mejor amigo?</option>
+                                        <option value="color favorito">¿Cuál es tu color favorito?</option>
+                                        <option value="nombre de tu mascota">¿Cómo se llama tu mascota?</option>
+                                    </>
                                 </select>
                             ) : (
                                 <input
@@ -111,6 +104,7 @@ const Perfil = () => {
                         </div>
                     ) : null
                 )}
+
             </div>
         </div>
     );

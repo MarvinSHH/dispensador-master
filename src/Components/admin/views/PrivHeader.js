@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext'; // Asegúrate de que la ruta de importación es correcta
-import imgLogo from '../../../assets/logoP.png';
+import imgLogo from '../../../assets/logoVar.png';
 import styles from '../../estilos';
 function PrivHeader() {
     const [showSubMenu, setShowSubMenu] = useState(false);
@@ -36,8 +36,9 @@ function PrivHeader() {
         <header style={styles.header} onClick={closeSubMenu}>
             <div style={styles.head}>
                 <div style={styles.logo}>
-                    <img src={imgLogo} style={styles.logo} alt="Logo" />
+                    <img style={styles.logo} src={imgLogo} alt="Logo" />
                 </div>
+                <h2 style={styles.textHead}> Planeta Mascotas</h2>
                 <div style={styles.navStyles}>
                     <nav style={styles.navLinks}>
 

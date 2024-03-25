@@ -23,7 +23,9 @@ import ContactPage from './Components/contactPage.js';
 import Product from './Components/admin/productos/Product.js';
 import User from './Components/admin/usuarios/User.js';
 import InsertProduct from './Components/admin/productos/InsertProduct.js';
-import Insertuser from './Components/admin/productos/InsertProduct.js';
+import Insertuser from './Components/admin/usuarios/InsertUser.js';
+import EditUser from './Components/admin/usuarios/EditUser.js';
+import EditProduct from './Components/admin/productos/EditProduct.js';
 import EmpresaForm from './Components/admin/pagina/EmpresaForm.js';
 
 //Esto va para las vistas de la parte publica, del usuario registrado
@@ -59,6 +61,9 @@ const ProductRoute = () => <AuthRoute allowedRoles={['administrador']}><Product 
 const UserRoute = () => <AuthRoute allowedRoles={['administrador']}><User /></AuthRoute>;
 const ProfileRoute = () => <AuthRoute allowedRoles={['usuario', 'administrador']}><Perfil /></AuthRoute>;
 const IoTDeviceRoute = () => <AuthRoute allowedRoles={['usuario']}><DispositivoIoT /></AuthRoute>;
+const EditUserRoute= () => <AuthRoute allowedRoles={['administrador']}><EditUser /></AuthRoute>;
+const EditProductRoute= () => <AuthRoute allowedRoles={['administrador']}><EditProduct /></AuthRoute>;
+
 
 const App = () => {
   return (
@@ -69,7 +74,6 @@ const App = () => {
           <main style={styles.body}>
             <Routes>
               <Route path="/" element={<Inicio />} />
-              <Route path="/producto/:id" element={<ProductDetails />} />
               <Route path="/legal" element={<Legal />} />
               <Route path="/about" element={<AboutUs />} />
               <Route path="/contact" element={<ContactPage />} />
@@ -82,6 +86,10 @@ const App = () => {
               <Route path="/dispositivoIoT" element={<IoTDeviceRoute />} />
               <Route path="/empresaForm" element={<EmpresaRoute />} />
               <Route path="/insert-product" element={<InsertProRoute />} />
+              <Route path="/producto/:id" element={<ProductDetails />} />
+              <Route path="/edit-user/:id" element={<EditUserRoute />} />
+              <Route path="/edit-product/:id" element={<EditProductRoute />} />
+
             </Routes>
           </main>
           <Footer />

@@ -5,8 +5,9 @@ import colores from './paletaColores.js'; // Ajusta la ruta de importaci√≥n seg√
 const styles = {
     
   body:{
-    paddingTop:'100px',
-    height:'100%',
+    paddingTop:'120px',
+    minHeight:'500px',
+    backgroundColor:'#daebff',
   } ,
   header: {
     backgroundColor: colores.fondoHeader,
@@ -16,6 +17,7 @@ const styles = {
     position: 'fixed',
     top: 0,
     width: '100%',
+    height:'100px'
   },
   head: {
     display: 'flex',
@@ -23,9 +25,23 @@ const styles = {
   },
   logo: {
     backgroundColor: colores.fondoLogo,
-    width: '190px',
     height: '80px',
     marginLeft: '10px',
+    borderRadius:'50px'
+  },
+  textHead:{
+    marginLeft:'10px',
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center',
+    paddingLeft:'5px',
+    paddingLeft:'5px',
+    width:'300px',
+    height:'50px',
+    fontFamily:'Monospace',
+    fontSize:'25px',
+    backgroundColor:'white',
+    borderRadius:'50px'
   },
   navStyles: {
     display: 'flex',
@@ -36,6 +52,7 @@ const styles = {
   navLinks: {
     display: 'flex',
     justifyContent: 'right',
+    alignItems:'center',
     padding: '10px 0',
   },
   navLink: {

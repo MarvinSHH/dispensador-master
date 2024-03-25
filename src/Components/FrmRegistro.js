@@ -85,7 +85,7 @@ const FrmRegistro = () => {
 
                 <button style={styles.registerButton} type="submit">¡Regístrate ahora!</button>
             </form>
-            <Link to="/login" style={styles.loginButtonText}>¿Ya tengo cuenta?</Link>
+            <Link to="/registrarse/" style={styles.loginButtonText}>¿Ya tengo cuenta?</Link>
         </div>
     );
 };

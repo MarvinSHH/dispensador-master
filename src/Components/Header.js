@@ -1,7 +1,7 @@
 // Components/Header.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-import imgLogo from '../assets/logoP.png';
+import imgLogo from '../assets/logoVar.png';
 import styles from './estilos.js'; 
 
 const Header = () => {
@@ -11,6 +11,7 @@ const Header = () => {
         <div style={styles.logo}>
           <img style={styles.logo} src={imgLogo} alt="Logo"/>
         </div>
+        <h2 style={styles.textHead}> Planeta Mascotas</h2>
         <div style={styles.navStyles}>
           <nav style={styles.navLinks}>
 
